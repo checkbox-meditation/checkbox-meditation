@@ -1,2 +1,10 @@
 /* some style */
 
+body {
+  margin: 2em 8em;
+}
+
+h1 {
+  font-style: normal;
+  font-weight: lighter;
+}

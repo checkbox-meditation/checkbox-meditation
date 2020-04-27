@@ -8,14 +8,14 @@
 
 ;; define your app data so that it doesn't get over-written on reload
 
-(defonce app-state (atom {:text "Hello world!"
-  :list [
+(defonce app-state (atom 
+  { :text "Self-awareness"
+    :list [
       "my breath",
       "my body",
       "my feelings"
-  ]
-
-}))
+    ]
+  }))
 
 (defonce prefix " I notice ")
 
