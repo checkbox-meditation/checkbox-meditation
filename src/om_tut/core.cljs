@@ -1,6 +1,9 @@
 (ns om-tut.core
+    (:require-macros [cljs.core.async.macros :refer [go]])
     (:require [om.core :as om :include-macros true]
-              [om.dom :as dom :include-macros true]))
+              [om.dom :as dom :include-macros true]
+              [cljs.core.async :refer [put! chan <!]]
+              [clojure.pprint :as pprint]))
 
 (enable-console-print!)
 
@@ -19,6 +22,14 @@
 
 (defonce prefix " I notice ")
 
+(defn checked [idx]
+  ;; #js console.log(e)
+  (println (str "clicked " idx))
+  ;;(pprint/pprint (:relatedTarget e))
+  (if (:checked (:relatedTarget e)) ()
+  )
+)
+
 (om/root
   (fn [data owner]
     (reify om/IRender
@@ -31,7 +42,7 @@
                     (fn [num text] 
                     (let [id (str "item" num)]
                       (dom/p nil
-                        (dom/input #js {:type "checkbox" :name id} )
+                        (dom/input #js {:type "checkbox" :id id :onClick #(checked num)} )
                         (dom/label #js {:htmlFor id} (str prefix text))))) 
                     (:list data)))
 
