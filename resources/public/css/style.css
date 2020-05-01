@@ -8,3 +8,11 @@ h1 {
   font-style: normal;
   font-weight: lighter;
 }
+
+label { 
+  font-size: 130%;
+}
+
+.done {
+  color: #999;
+}

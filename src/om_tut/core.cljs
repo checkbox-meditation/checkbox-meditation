@@ -62,8 +62,8 @@
                     (fn [num text] 
                     (let [id (str "item" num)
                           disabled (get (:checked data) num)
-                          className (if disabled "disabled" "")
-                          checked (get (:checked data) num)]
+                          checked (get (:checked data) num)
+                          className (if checked "done" "")]
                       (dom/p nil
                         (dom/input 
                           #js { :type "checkbox" 
@@ -74,7 +74,8 @@
                                 :checked (if checked 1 "")
                               }
                           )
-                        (dom/label #js {:htmlFor id} (str prefix text))))) 
+                        (dom/label #js {:htmlFor id 
+                                        :className className} (str prefix text))))) 
                     (:list data)))
 
                   #_(dom/p nil (str "Clicked: " (:counter data)))
