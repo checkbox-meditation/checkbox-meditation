@@ -3,7 +3,7 @@
     ;;(:use [clojure.core] :reload)
     (:require [om.core :as om :include-macros true]
               [om.dom :as dom :include-macros true]
-              [cljs.core.async :refer [put! chan <!]]
+              ;;[cljs.core.async :refer [thread put! chan <! timeout]]
               [clojure.pprint :as pprint]
               ))
 
@@ -16,7 +16,8 @@
 (defonce items [
       "my breath",
       "my body",
-      "my feelings"
+      "my feelings",
+      "my environment"
 ])
 (defonce checked-initial (vec (map #(quote false) items)))
 (defonce app-state (atom 
@@ -31,11 +32,12 @@
 (defn click [idx]
   ;; #js console.log(e)
   ;;(om/transact! data :checked #( (:checked data)))
-  (pprint/pprint (:checked @app-state))
   (let [value (get (:checked @app-state) idx)
-        newval (if value false true)]
+        newval (not value)]
       (println (str "clicked line " idx ", which was " (if value "checked" "unchecked")))
       (swap! app-state update :checked #(assoc % idx newval))
+      ;; here, we could schedule a reset of all the :checked items
+      (pprint/pprint (:checked @app-state))
   )
 )
 
