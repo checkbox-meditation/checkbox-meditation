@@ -18,16 +18,19 @@
       "my body",
       "my feelings"
     ]
+    :checked [ false true false ]
+    :counter 0
   }))
 
 (defonce prefix " I notice ")
 
-(defn checked [idx]
+(defn click [idx]
   ;; #js console.log(e)
   (println (str "clicked " idx))
-  ;;(pprint/pprint (:relatedTarget e))
-  (if (:checked (:relatedTarget e)) ()
-  )
+  ;;(om/transact! data :checked #( (:checked data)))
+  (swap! app-state update :checked #(assoc % idx true))
+  (pprint/pprint app-state)
+  ;;(if (:checked (:relatedTarget e)) ()  )
 )
 
 (om/root
@@ -40,12 +43,24 @@
                  (apply dom/form #js {:className "points"}
                   (map-indexed 
                     (fn [num text] 
-                    (let [id (str "item" num)]
+                    (let [id (str "item" num)
+                          disabled (get (:disabled data) num)
+                          className (if disabled "disabled" "")
+                          checked (get (:checked data) num)]
                       (dom/p nil
-                        (dom/input #js {:type "checkbox" :id id :onClick #(checked num)} )
+                        (dom/input 
+                          #js { :type "checkbox" 
+                                :id id 
+                                :onClick #(click num) 
+                                :disabled disabled
+                                :className className
+                                :checked (if checked 1 "")
+                              }
+                          )
                         (dom/label #js {:htmlFor id} (str prefix text))))) 
                     (:list data)))
 
+                  (dom/p nil (str "Clicked: " (:counter data)))
                   ;; (dom/form nil 
                   ;;  (dom/input #js {:type "checkbox" :name "breath"} )
                   ;;  (dom/label #js {:htmlFor "breath"} " I notice my breath."))
