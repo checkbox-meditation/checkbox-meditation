@@ -5,11 +5,15 @@
               [om.dom :as dom :include-macros true]
               ;;[cljs.core.async :refer [thread put! chan <! timeout]]
               [clojure.pprint :as pprint]
+              [clojure.core.async :as ca]
               ))
 
 (enable-console-print!)
 
-(println "This text is printed from src/om-tut/core.cljs. Go ahead and edit it and see reloading in action.")
+;;(println "This text is printed from src/om-tut/core.cljs. Go ahead and edit it and see reloading in action.")
+
+;; miliseconds
+(def restore-delay 5000)
 
 ;; define your app data so that it doesn't get over-written on reload
 
@@ -37,6 +41,11 @@
       (println (str "clicked line " idx ", which was " (if value "checked" "unchecked")))
       (swap! app-state update :checked #(assoc % idx newval))
       ;; here, we could schedule a reset of all the :checked items
+      ;; https://clojuredocs.org/clojure.core.async/go
+      ;; another resource: https://purelyfunctional.tv/guide/clojure-concurrency/#core.async
+      (if newval 
+        (ca/go (<! (ca/timeout restore-delay))
+              (swap! app-state update :checked #(assoc % idx false))))
       (pprint/pprint (:checked @app-state))
   )
 )
@@ -52,7 +61,7 @@
                   (map-indexed 
                     (fn [num text] 
                     (let [id (str "item" num)
-                          disabled (get (:disabled data) num)
+                          disabled (get (:checked data) num)
                           className (if disabled "disabled" "")
                           checked (get (:checked data) num)]
                       (dom/p nil
