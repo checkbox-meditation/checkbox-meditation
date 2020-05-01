@@ -1,4 +1,6 @@
-(ns om-tut.core
+;; this was initially generated with figwheel with --om
+
+(ns chbme.core
     (:require-macros [cljs.core.async.macros :refer [go]])
     ;;(:use [clojure.core] :reload)
     (:require [om.core :as om :include-macros true]
@@ -9,8 +11,6 @@
               ))
 
 (enable-console-print!)
-
-;;(println "This text is printed from src/om-tut/core.cljs. Go ahead and edit it and see reloading in action.")
 
 ;; miliseconds
 (def restore-delay 5000)
