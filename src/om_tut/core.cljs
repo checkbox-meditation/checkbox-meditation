@@ -1,9 +1,11 @@
 (ns om-tut.core
     (:require-macros [cljs.core.async.macros :refer [go]])
+    ;;(:use [clojure.core] :reload)
     (:require [om.core :as om :include-macros true]
               [om.dom :as dom :include-macros true]
               [cljs.core.async :refer [put! chan <!]]
-              [clojure.pprint :as pprint]))
+              [clojure.pprint :as pprint]
+              ))
 
 (enable-console-print!)
 
@@ -11,14 +13,16 @@
 
 ;; define your app data so that it doesn't get over-written on reload
 
-(defonce app-state (atom 
-  { :text "Self-awareness"
-    :list [
+(defonce items [
       "my breath",
       "my body",
       "my feelings"
-    ]
-    :checked [ false true false ]
+])
+(defonce checked-initial (vec (map #(quote false) items)))
+(defonce app-state (atom 
+  { :text "Self-awareness"
+    :list items
+    :checked checked-initial
     :counter 0
   }))
 
@@ -26,11 +30,13 @@
 
 (defn click [idx]
   ;; #js console.log(e)
-  (println (str "clicked " idx))
   ;;(om/transact! data :checked #( (:checked data)))
-  (swap! app-state update :checked #(assoc % idx true))
-  (pprint/pprint app-state)
-  ;;(if (:checked (:relatedTarget e)) ()  )
+  (pprint/pprint (:checked @app-state))
+  (let [value (get (:checked @app-state) idx)
+        newval (if value false true)]
+      (println (str "clicked line " idx ", which was " (if value "checked" "unchecked")))
+      (swap! app-state update :checked #(assoc % idx newval))
+  )
 )
 
 (om/root
@@ -60,7 +66,7 @@
                         (dom/label #js {:htmlFor id} (str prefix text))))) 
                     (:list data)))
 
-                  (dom/p nil (str "Clicked: " (:counter data)))
+                  #_(dom/p nil (str "Clicked: " (:counter data)))
                   ;; (dom/form nil 
                   ;;  (dom/input #js {:type "checkbox" :name "breath"} )
                   ;;  (dom/label #js {:htmlFor "breath"} " I notice my breath."))
@@ -72,4 +78,5 @@
   ;; optionally touch your app-state to force rerendering depending on
   ;; your application
   ;; (swap! app-state update-in [:__figwheel_counter] inc)
+  (pprint/pprint (:checked @app-state))
 )
