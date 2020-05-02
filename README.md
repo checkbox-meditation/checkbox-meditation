@@ -6,6 +6,10 @@ Notice things and check them off.
 
 It a learning-experiment project, to play with Clojure and ClojureScript. 
 
+## Demo
+
+See https://checkbox-meditation.github.io/ for a live demo.
+
 ## Setup
 
 To get an interactive development environment run:

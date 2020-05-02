@@ -1,6 +1,6 @@
 (defproject checkbox-meditation "0.1.0-a"
   :description "A little online self-awareness tool"
-  :url "http://example.com/FIXME"
+  :url "https://github.com/checkbox-meditation/checkbox-meditation"
   :license {:name "MIT"}
 
   :min-lein-version "2.9.1"
