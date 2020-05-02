@@ -46,7 +46,7 @@
                {:id "min"
                 :source-paths ["src"]
                 :compiler {:output-to "resources/public/js/compiled/chbme.js"
-                           :main om-tut.core
+                           :main chbme.core
                            :optimizations :advanced
                            :pretty-print false}}]}
 
