@@ -32,23 +32,36 @@
                            ;; Comment this out once it no longer serves you.
                            :open-urls ["http://localhost:3449/index.html"]}
 
-                :compiler {:main chbme.en_main
-                           :asset-path "js/compiled/out"
-                           :output-to "resources/public/js/compiled/chbme.js"
-                           :output-dir "resources/public/js/compiled/out"
-                           :source-map-timestamp true
-                           ;; To console.log CLJS data-structures make sure you enable devtools in Chrome
-                           ;; https://github.com/binaryage/cljs-devtools
-                           :preloads [devtools.preload]}}
+                :compiler 
+                            {:main chbme.en_main
+                            :asset-path "js/compiled/out"
+                            :output-to "resources/public/js/compiled/chbme.js"
+                            :output-dir "resources/public/js/compiled/out.main"
+                            :source-map-timestamp true
+                            ;; To console.log CLJS data-structures make sure you enable devtools in Chrome
+                            ;; https://github.com/binaryage/cljs-devtools
+                            :preloads [devtools.preload]}
+               }
+
                ;; This next build is a compressed minified build for
                ;; production. You can build this with:
                ;; lein cljsbuild once min
                {:id "min"
                 :source-paths ["src"]
                 :compiler {:output-to "resources/public/js/compiled/chbme.js"
+                           :output-dir "resources/public/js/compiled/out.min" 
                            :main chbme.core
                            :optimizations :advanced
-                           :pretty-print false}}]}
+                           :pretty-print false}}
+
+               {:id "ru"
+                :source-paths ["src"]
+                :compiler {:output-to "resources/public/js/compiled/ru.js"
+                           :output-dir "resources/public/js/compiled/out.ru"
+                           :main chbme.ru_main
+                           :optimizations :advanced
+                           :pretty-print false}}
+                           ]}
 
   :figwheel {;; :http-server-root "public" ;; default and assumes "resources"
              ;; :server-port 3449 ;; default

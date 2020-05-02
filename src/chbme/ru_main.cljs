@@ -1,4 +1,4 @@
-(ns chbme.en_main
+(ns chbme.ru_main
     (:require [chbme.core :as core]
               [om.core :as om :include-macros true]
               [om.dom :as dom :include-macros true]))
@@ -18,7 +18,7 @@
 
 ;; here we define the app data in an atom
 (defonce app-state (atom 
-  { :text "Self-awareness checklist"
+  { :text "Само-наблюдение, вопросы"
     :list items
     :checked checked-initial
   }))
