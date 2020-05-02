@@ -1,7 +1,7 @@
 /* some style */
 body { margin: 0 }
 
-body #app { margin: 2em 8em; }
+body #app { margin: 2em 2em 2em 8em; }
 
 h1 {
   font-style: normal;

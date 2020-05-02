@@ -17,82 +17,64 @@
 
 ;; define your app data so that it doesn't get over-written on reload
 
-(defonce items [
-      "physical environment",
-      "breath",
-      "body",
-      "body weight",
-      "body sensations",
-      "feelings",
-      "mental state",
-      "thoughts"
-])
-(defonce checked-initial (vec (map #(quote false) items)))
-(defonce app-state (atom 
-  { :text "Self-awareness checklist"
-    :list items
-    :checked checked-initial
-    :counter 0
-  }))
-
 (defonce prefix " I notice my ")
 
-(defn click [idx]
+(defn on-click [idx state]
   ;; #js console.log(e)
   ;;(om/transact! data :checked #( (:checked data)))
-  (let [value (get (:checked @app-state) idx)
+  ;(prn "on-click: in")
+  ;(pprint/pprint state)
+  (let [value (get (:checked state) idx)
         newval (not value)]
       (println (str "clicked line " idx ", which was " (if value "checked" "unchecked")))
-      (swap! app-state update :checked #(assoc % idx newval))
-      ;; here, we could schedule a reset of all the :checked items
+      (om/update! state [:checked idx] newval)
+      ;; here, we schedule an auto-reset the checked item, after a little wait
       ;; https://clojuredocs.org/clojure.core.async/go
       ;; another resource: https://purelyfunctional.tv/guide/clojure-concurrency/#core.async
       (if newval 
         (ca/go (<! (ca/timeout restore-delay))
-              (swap! app-state update :checked #(assoc % idx false))))
-      (pprint/pprint (:checked @app-state))
-  )
-)
+              (om/update! state [:checked idx] false)))
+      (pprint/pprint (:checked state))
+  ))
 
-(om/root
-  (fn [data owner]
-    (reify om/IRender
-      (render [_]
-        (dom/div nil
-                 (dom/h1 nil (:text data))
-                 ;; (dom/p nil "Edit this and watch it change!")
-                 (apply dom/form #js {:className "points"}
-                  (map-indexed 
-                    (fn [num text] 
-                    (let [id (str "item" num)
-                          disabled (get (:checked data) num)
-                          checked (get (:checked data) num)
-                          className (if checked "done" "")]
-                      (dom/p nil
-                        (dom/input 
-                          #js { :type "checkbox" 
-                                :id id 
-                                :onClick #(click num) 
-                                :disabled disabled
-                                :className className
-                                :checked (if checked 1 "")
-                              }
-                          )
-                        (dom/label #js {:htmlFor id 
-                                        :className className} (str prefix text))))) 
-                    (:list data)))
+(defn checklist-app [data owner]
+  (reify om/IRender
+    (render [_]
+      ;(prn "render-state: in")
+      ;(pprint/pprint data)
+      (dom/div nil
+        (dom/h1 nil (:text data))
+        ;; (dom/p nil "Edit this and watch it change!")
+        (apply dom/form #js {:className "points"}
+        (map-indexed 
+          (fn [num text] 
+          (let [id (str "item" num)
+                disabled (get (:checked data) num)
+                checked (get (:checked data) num)
+                className (if checked "done" "")]
+            (dom/p nil
+              (dom/input 
+                #js { :type "checkbox" 
+                      :id id 
+                      :onClick #(on-click num data) 
+                      :disabled disabled
+                      :className className
+                      :checked (if checked 1 "")
+                    }
+                )
+              (dom/label #js {:htmlFor id 
+                              :className className} (str prefix text))))) 
+          (:list data)))
 
-                  #_(dom/p nil (str "Clicked: " (:counter data)))
-                  ;; (dom/form nil 
-                  ;;  (dom/input #js {:type "checkbox" :name "breath"} )
-                  ;;  (dom/label #js {:htmlFor "breath"} " I notice my breath."))
-                  ))))
-  app-state
-  {:target (. js/document (getElementById "app"))})
+        #_(dom/p nil (str "Clicked: " (:counter data)))
+        ;; (dom/form nil 
+        ;;  (dom/input #js {:type "checkbox" :name "breath"} )
+        ;;  (dom/label #js {:htmlFor "breath"} " I notice my breath."))
+        ))))
 
 (defn on-js-reload []
   ;; optionally touch your app-state to force rerendering depending on
   ;; your application
   ;; (swap! app-state update-in [:__figwheel_counter] inc)
-  (pprint/pprint (:checked @app-state))
+  ;;(pprint/pprint (:checked @app-state))
 )

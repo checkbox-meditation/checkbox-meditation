@@ -25,14 +25,14 @@
                 ;; The presence of a :figwheel configuration here
                 ;; will cause figwheel to inject the figwheel client
                 ;; into your build
-                :figwheel {:on-jsload "chbme.core/on-js-reload"
+                :figwheel { ;; :on-jsload "chbme.core/on-js-reload"
                            ;; :open-urls will pop open your application
                            ;; in the default browser once Figwheel has
                            ;; started and compiled your application.
                            ;; Comment this out once it no longer serves you.
                            :open-urls ["http://localhost:3449/index.html"]}
 
-                :compiler {:main chbme.core
+                :compiler {:main chbme.en_main
                            :asset-path "js/compiled/out"
                            :output-to "resources/public/js/compiled/chbme.js"
                            :output-dir "resources/public/js/compiled/out"
