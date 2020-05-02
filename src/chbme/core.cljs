@@ -18,20 +18,24 @@
 ;; define your app data so that it doesn't get over-written on reload
 
 (defonce items [
-      "my breath",
-      "my body",
-      "my feelings",
-      "my environment"
+      "physical environment",
+      "breath",
+      "body",
+      "body weight",
+      "body sensations",
+      "feelings",
+      "mental state",
+      "thoughts"
 ])
 (defonce checked-initial (vec (map #(quote false) items)))
 (defonce app-state (atom 
-  { :text "Self-awareness"
+  { :text "Self-awareness checklist"
     :list items
     :checked checked-initial
     :counter 0
   }))
 
-(defonce prefix " I notice ")
+(defonce prefix " I notice my ")
 
 (defn click [idx]
   ;; #js console.log(e)

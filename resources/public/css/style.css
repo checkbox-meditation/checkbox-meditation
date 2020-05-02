@@ -1,18 +1,22 @@
 /* some style */
+body { margin: 0 }
 
-body {
-  margin: 2em 8em;
-}
+body #app { margin: 2em 8em; }
 
 h1 {
   font-style: normal;
   font-weight: lighter;
+  margin-bottom: 2em;
 }
 
-label { 
-  font-size: 130%;
-}
+label { font-size: 130%; }
 
-.done {
-  color: #999;
+.done { color: #999; }
+
+.footer {
+  background: #e4e4e4;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
 }
