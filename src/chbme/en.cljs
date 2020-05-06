@@ -1,4 +1,4 @@
-(ns chbme.en_main
+(ns chbme.en
     (:require [chbme.core :as core]
               [om.core :as om :include-macros true]
               [om.dom :as dom :include-macros true]))
@@ -19,10 +19,9 @@
 ;; here we define the app data in an atom
 (defonce app-state (atom 
   { :text "Self-awareness checklist"
+    :items-prefix " I notice my "
     :list items
     :checked checked-initial
   }))
 
-;; attach an om component to a DOM element
-(om/root core/checklist-app app-state {:target (. js/document (getElementById "app"))})
 

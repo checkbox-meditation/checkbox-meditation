@@ -33,10 +33,10 @@
                            :open-urls ["http://localhost:3449/index.html"]}
 
                 :compiler 
-                            {:main chbme.en_main
-                            :asset-path "js/compiled/out"
+                            {:main chbme.main
+                            :asset-path "/js/compiled/out"
                             :output-to "resources/public/js/compiled/chbme.js"
-                            :output-dir "resources/public/js/compiled/out.main"
+                            :output-dir "resources/public/js/compiled/out"
                             :source-map-timestamp true
                             ;; To console.log CLJS data-structures make sure you enable devtools in Chrome
                             ;; https://github.com/binaryage/cljs-devtools
@@ -50,18 +50,10 @@
                 :source-paths ["src"]
                 :compiler {:output-to "resources/public/js/compiled/chbme.js"
                            :output-dir "resources/public/js/compiled/out.min" 
-                           :main chbme.core
+                           :main chbme.main
                            :optimizations :advanced
                            :pretty-print false}}
-
-               {:id "ru"
-                :source-paths ["src"]
-                :compiler {:output-to "resources/public/js/compiled/ru.js"
-                           :output-dir "resources/public/js/compiled/out.ru"
-                           :main chbme.ru_main
-                           :optimizations :advanced
-                           :pretty-print false}}
-                           ]}
+              ]}
 
   :figwheel {;; :http-server-root "public" ;; default and assumes "resources"
              ;; :server-port 3449 ;; default

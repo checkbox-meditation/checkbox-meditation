@@ -15,10 +15,6 @@
 ;; miliseconds
 (def restore-delay 5000)
 
-;; define your app data so that it doesn't get over-written on reload
-
-(defonce prefix " I notice my ")
-
 (defn on-click [idx state]
   ;; #js console.log(e)
   ;;(om/transact! data :checked #( (:checked data)))
@@ -63,7 +59,7 @@
                     }
                 )
               (dom/label #js {:htmlFor id 
-                              :className className} (str prefix text))))) 
+                              :className className} (str (:items-prefix data) text))))) 
           (:list data)))
 
         #_(dom/p nil (str "Clicked: " (:counter data)))
