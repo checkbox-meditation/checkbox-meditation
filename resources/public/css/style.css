@@ -2,7 +2,7 @@
 body { margin: 0 }
 
 div#menu ul {
-  float: right;
+  /* x-float: right; */
 }
 
 div.content-wrapper {
@@ -10,20 +10,22 @@ div.content-wrapper {
     margin-top: 2em;
     border-top: solid #e4e4e4 1px;
   */
-  padding-top: 2em;
 }
 
 .pure-menu-link { width: 100%; }
 
-body #app { margin: 2em 2em 2em 8em; }
+body #app { 
+  padding: 1em 1em 8em 1em; 
+}
 
 h1 {
   font-style: normal;
   font-weight: lighter;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
 }
 
 label { font-size: 130%; }
+form p input { vertical-align: text-top; } 
 
 .done { color: #999; }
 
@@ -33,4 +35,23 @@ label { font-size: 130%; }
   bottom: 0;
   width: 100%;
   text-align: center;
+  padding: 0.4ex;
+}
+
+.footer p { vertical-align: middle; }
+
+@media screen and (min-width: 600px) {
+  body #app { padding: 2em 2em 8em 2em; }
+  h1 { margin-bottom: 2em; }
+  div.content-wrapper { padding-top: 2em; }
+  .pure-menu-link { width: 12ex; }
+}
+
+@media screen and (min-width: 800px) {
+  body #app { padding-left: 4em; }
+  form p input { margin-right: 1ex; } 
+}
+
+@media screen and (min-width: 1200px) {
+  body #app { padding-left: 12em; }
 }
