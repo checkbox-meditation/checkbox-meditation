@@ -29,6 +29,12 @@ form p input { vertical-align: text-top; }
 
 .done { color: #999; }
 
+.mark { 
+  color: green; 
+  display: inline-block;
+  margin-left: 1.4ex;
+}
+
 .footer {
   background: #e4e4e4;
   position: fixed;

@@ -24,6 +24,8 @@
         newval (not value)]
       (println (str "clicked line " idx ", which was " (if value "checked" "unchecked")))
       (om/update! state [:checked idx] newval)
+      (if (not (get (:checked-once state) idx))
+          (om/update! state [:checked-once idx] true))
       ;; here, we schedule an auto-reset the checked item, after a little wait
       ;; https://clojuredocs.org/clojure.core.async/go
       ;; another resource: https://purelyfunctional.tv/guide/clojure-concurrency/#core.async
@@ -47,6 +49,7 @@
           (let [id (str "item" num)
                 disabled (get (:checked data) num)
                 checked (get (:checked data) num)
+                checked-once (get (:checked-once data) num)
                 className (if checked "done" "")]
             (dom/p nil
               (dom/input 
@@ -59,7 +62,12 @@
                     }
                 )
               (dom/label #js {:htmlFor id 
-                              :className className} (str (:items-prefix data) text))))) 
+                              :className className} 
+                              (str (:items-prefix data) text))
+              (if checked-once 
+                (dom/span #js {:className "mark"}
+                  " \u2713"))
+                                ))) 
           (:list data)))
 
         #_(dom/p nil (str "Clicked: " (:counter data)))

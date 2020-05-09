@@ -5,22 +5,23 @@
 
 
 (defonce items [
-      ", где я нахожусь"
+      ", где я нахожусь и что вокруг"
       " своё дыхание"
-      " вес своего тела"
-      " телесные ощущения"
+      " вес своего тела и телесные ощущения"
       " свои чувства и эмоции"
-      " состояние своего ума"
-      " свои мысли"
+      " состояние своего ума и мысли"
+      " своё присутствие"
 ])
 (defonce checked-initial (vec (map #(quote false) items)))
+(defonce checked-once-initial (vec (map #(quote false) items)))
 
 ;; here we define the app data in an atom
 (defonce app-state (atom 
   { :text "Осознавание себя. Чеклист"
-    :items-prefix " Я замечаю"
+    :items-prefix " я замечаю"
     :list items
     :checked checked-initial
+    :checked-once checked-once-initial
   }))
 
 

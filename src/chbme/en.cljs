@@ -15,6 +15,7 @@
       "thoughts"
 ])
 (defonce checked-initial (vec (map #(quote false) items)))
+(defonce checked-once-initial (vec (map #(quote false) items)))
 
 ;; here we define the app data in an atom
 (defonce app-state (atom 
@@ -22,6 +23,7 @@
     :items-prefix " I notice my "
     :list items
     :checked checked-initial
+    :checked-once checked-once-initial
   }))
 
 
