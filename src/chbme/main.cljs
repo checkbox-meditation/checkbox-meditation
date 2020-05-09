@@ -1,22 +1,36 @@
 (ns chbme.main
-    (:require [chbme.core :as core]
-              [chbme.ru]
-              [chbme.en]
-              [om.core :as om :include-macros true]
+    (:require [om.core :as om :include-macros true]
               [om.dom :as dom :include-macros true]
               [clojure.pprint :as pprint]
+              [chbme.core :as core]
+              [chbme.ru]
+              [chbme.en]
     ))
 
-;; attach an om component to a DOM element
+(defn build-app-state-atom [title prefix list] 
+  (atom {
+    :title title
+    :items-prefix prefix
+    :list list
+    :checked (vec (map #(quote false) list))
+    :checked-once (vec (map #(quote false) list))
+  }))
+
+(defn fetch-build-app-state [from] 
+  (let [title from/title
+        prefix from/items-prefix
+        list from/items]
+    (build-app-state-atom title prefix list)))
 
 (let [targetEl (. js/document (getElementById "app"))
-      lang     (. targetEl (getAttribute "lang"))]
-      (pprint/pprint targetEl)
-      (pprint/pprint lang)  
+      lang     (. targetEl (getAttribute "lang"))
+      state    (fetch-build-app-state
+                 (if (= lang "en") chbme.en
+                  (if (= lang "ru") chbme.ru)))]
+  ;; (pprint/pprint targetEl)
+  ;; (pprint/pprint lang)  
 
-(om/root  core/checklist-app 
-          (if (= lang "en") 
-            chbme.en/app-state
-            (if (= lang "ru")
-              chbme.ru/app-state)) 
+  ;; attach an om component to a DOM element
+  (om/root  core/checklist-app 
+          state
           {:target targetEl}))

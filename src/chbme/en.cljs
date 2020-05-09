@@ -1,9 +1,7 @@
-(ns chbme.en
-    (:require [chbme.core :as core]
-              [om.core :as om :include-macros true]
-              [om.dom :as dom :include-macros true]))
+(ns chbme.en)
 
-
+(defonce title "Self-awareness checklist")
+(defonce items-prefix " I notice my ")
 (defonce items [
       "physical environment",
       "breath",
@@ -14,16 +12,5 @@
       "mental state",
       "thoughts"
 ])
-(defonce checked-initial (vec (map #(quote false) items)))
-(defonce checked-once-initial (vec (map #(quote false) items)))
-
-;; here we define the app data in an atom
-(defonce app-state (atom 
-  { :title "Self-awareness checklist"
-    :items-prefix " I notice my "
-    :list items
-    :checked checked-initial
-    :checked-once checked-once-initial
-  }))
 
 
