@@ -14,11 +14,9 @@
       (pprint/pprint targetEl)
       (pprint/pprint lang)  
 
-(if (= lang "en")
-    (om/root core/checklist-app chbme.en/app-state {:target targetEl})
-)
-
-(if (= lang "ru")
-    (om/root core/checklist-app chbme.ru/app-state {:target targetEl})
-)
-)
+(om/root  core/checklist-app 
+          (if (= lang "en") 
+            chbme.en/app-state
+            (if (= lang "ru")
+              chbme.ru/app-state)) 
+          {:target targetEl}))
