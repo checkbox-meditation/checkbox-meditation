@@ -63,7 +63,7 @@
                 )
               (dom/label #js {:htmlFor id 
                               :className className} 
-                              (str (:items-prefix data) text))
+                              (str " " (:items-prefix data) text))
               (if checked-once 
                 (dom/span #js {:className "mark"}
                   " \u2713"))

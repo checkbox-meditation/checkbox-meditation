@@ -1,7 +1,7 @@
 (ns chbme.ru)
 
 (defonce title "Осознавание себя. Чеклист")
-(defonce items-prefix " я замечаю")
+(defonce items-prefix "я замечаю")
 (defonce items [
       ", где я нахожусь и что вокруг"
       " своё дыхание"
