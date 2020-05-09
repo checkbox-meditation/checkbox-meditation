@@ -12,6 +12,14 @@
 
 (enable-console-print!)
 
+;; https://coderwall.com/p/s3j4va/google-analytics-tracking-in-clojurescript
+;; by Aleš Roubíček https://coderwall.com/rarous
+;; modified for gtag api: https://developers.google.com/analytics/devguides/collection/gtagjs/events
+(defn gtag [& more]
+  (when js/gtag
+    (.. (aget js/window "gtag")
+        (apply nil (clj->js more)))))
+
 ;; miliseconds
 (def restore-delay 5000)
 
@@ -32,6 +40,8 @@
       (if newval 
         (ca/go (<! (ca/timeout restore-delay))
               (om/update! state [:checked idx] false)))
+      ;; track in google analytics
+      (gtag "event" "checkItem" #js { :event_category "engagement" :event_label (get (:list state) idx) })
       (pprint/pprint (:checked state))
   ))
 
