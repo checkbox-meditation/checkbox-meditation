@@ -7,20 +7,17 @@
               [chbme.en]
     ))
 
-(defn build-app-state-atom [title prefix list] 
-  (atom {
+(defn fetch-build-app-state [from] 
+  (let [title  from/title
+        prefix from/items-prefix
+        list   from/items]
+    (atom {
     :title title
     :items-prefix prefix
     :list list
     :checked (vec (map #(quote false) list))
     :checked-once (vec (map #(quote false) list))
-  }))
-
-(defn fetch-build-app-state [from] 
-  (let [title from/title
-        prefix from/items-prefix
-        list from/items]
-    (build-app-state-atom title prefix list)))
+    })))
 
 (let [targetEl (. js/document (getElementById "app"))
       lang     (. targetEl (getAttribute "lang"))
