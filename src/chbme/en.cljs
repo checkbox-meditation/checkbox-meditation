@@ -19,7 +19,7 @@
 
 ;; here we define the app data in an atom
 (defonce app-state (atom 
-  { :text "Self-awareness checklist"
+  { :title "Self-awareness checklist"
     :items-prefix " I notice my "
     :list items
     :checked checked-initial

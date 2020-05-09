@@ -41,7 +41,7 @@
       ;(prn "render-state: in")
       ;(pprint/pprint data)
       (dom/div nil
-        (dom/h1 nil (:text data))
+        (dom/h1 nil (:title data))
         ;; (dom/p nil "Edit this and watch it change!")
         (apply dom/form #js {:className "points"}
         (map-indexed 

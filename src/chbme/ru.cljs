@@ -17,7 +17,7 @@
 
 ;; here we define the app data in an atom
 (defonce app-state (atom 
-  { :text "Осознавание себя. Чеклист"
+  { :title "Осознавание себя. Чеклист"
     :items-prefix " я замечаю"
     :list items
     :checked checked-initial
