@@ -38,8 +38,9 @@
       ;; https://clojuredocs.org/clojure.core.async/go
       ;; another resource: https://purelyfunctional.tv/guide/clojure-concurrency/#core.async
       (if newval 
-        (ca/go (<! (ca/timeout restore-delay))
-              (om/update! state [:checked idx] false)))
+        (js/setTimeout ; https://yogthos.net/posts/2017-03-26-ReagentReactView.html
+          #(om/update! state [:checked idx] false)
+          restore-delay))
       ;; track in google analytics
       (gtag "event" "checkItem" #js { :event_category "engagement" :event_label (get (:list state) idx) })
       (pprint/pprint (:checked state))
