@@ -37,7 +37,9 @@
                         current (if (= (:current data) (get item 0)) true false)
                         className (if current "pure-menu-selected pure-menu-item" 
                                               "pure-menu-item")]
-                    (dom/li #js {:className className :key (str "k" num)} (get item 1))
+                    (if (not current)
+                      (dom/li #js {:className className :key (str "k" num)} 
+                        (dom/a #js {:href (get item 0) :className "pure-menu-link"} (get item 1))))
                   )) 
                 (:list data)))))))))
 
