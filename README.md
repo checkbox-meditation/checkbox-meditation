@@ -4,7 +4,7 @@ Notice things and check them off.
 
 ## Overview
 
-It a learning-experiment project, to play with Clojure and ClojureScript. 
+It is a learning-experiment project, to play with Clojure and ClojureScript. 
 
 ## Demo
 
