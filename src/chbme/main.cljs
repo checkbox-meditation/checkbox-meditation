@@ -19,15 +19,20 @@
     :checked-once (vec (map #(quote false) list))
     })))
 
-(let [targetEl (. js/document (getElementById "app"))
-      lang     (. targetEl (getAttribute "lang"))
-      state    (fetch-build-app-state
-                 (if (= lang "en") chbme.en
-                  (if (= lang "ru") chbme.ru)))]
-  ;; (pprint/pprint targetEl)
-  ;; (pprint/pprint lang)  
-
+(defn attach-app [target]
+   (let [lang     (. target (getAttribute "lang"))
+         state    (fetch-build-app-state
+                    (if (= lang "en") chbme.en
+                    (if (= lang "ru") chbme.ru)))]
+  ;;(pprint/pprint target)
+  ;;(pprint/pprint lang)
   ;; attach an om component to a DOM element
-  (om/root  core/checklist-app 
+  (om/root core/checklist-app 
           state
-          {:target targetEl}))
+          {:target target})))
+
+;; main code run
+(let [targetEls (array-seq (.getElementsByClassName js/document "chbme"))]
+  ;;(pprint/pprint targetEls)
+  (doseq [t targetEls] (attach-app t))
+)
