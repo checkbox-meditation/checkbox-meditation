@@ -12,11 +12,12 @@
         prefix from/items-prefix
         list   from/items]
     (atom {
-    :title title
-    :items-prefix prefix
-    :list list
-    :checked (vec (map #(quote false) list))
-    :checked-once (vec (map #(quote false) list))
+        :key from/_key
+        :title title
+        :items-prefix prefix
+        :list list
+        :checked (vec (map #(quote false) list))
+        :checked-once (vec (map #(quote false) list))
     })))
 
 (defn attach-app [target]

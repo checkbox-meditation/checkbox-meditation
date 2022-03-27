@@ -57,7 +57,7 @@
         (apply dom/form #js {:className "points"}
         (map-indexed 
           (fn [num text] 
-          (let [id (str "item" num)
+          (let [id (str (:key data) "item" num)
                 disabled (get (:checked data) num)
                 checked (get (:checked data) num)
                 checked-once (get (:checked-once data) num)
