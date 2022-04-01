@@ -28,22 +28,22 @@
   ;;(om/transact! data :checked #( (:checked data)))
   ;(prn "on-click: in")
   ;(pprint/pprint state)
-  (let [value (get (:checked state) idx)
+  (let [item (get (:items state) idx)
+        value (:checked item)
         newval (not value)]
       (println (str "clicked line " idx ", which was " (if value "checked" "unchecked")))
-      (om/update! state [:checked idx] newval)
-      (if (not (get (:checked-once state) idx))
-          (om/update! state [:checked-once idx] true))
+      (om/update! state [:items idx :checked] newval)
+      (if (not (:checked-once item))
+          (om/update! state [:items idx :checked-once] true))
       ;; here, we schedule an auto-reset the checked item, after a little wait
       ;; https://clojuredocs.org/clojure.core.async/go
       ;; another resource: https://purelyfunctional.tv/guide/clojure-concurrency/#core.async
       (if newval 
         (js/setTimeout ; https://yogthos.net/posts/2017-03-26-ReagentReactView.html
-          #(om/update! state [:checked idx] false)
+          #(om/update! state [:items idx :checked] false)
           restore-delay))
       ;; track in google analytics
-      (gtag "event" "checkItem" #js { :event_category "engagement" :event_label (get (:list state) idx) })
-      (pprint/pprint (:checked state))
+      (gtag "event" "checkItem" #js { :event_category "engagement" :event_label (:text item) })
   ))
 
 (defn checklist-render [data]
@@ -51,16 +51,16 @@
       ;(pprint/pprint data)
       (dom/div nil
         (if (:title data) (dom/h1 nil (:title data)))
-        ;; (dom/p nil "Edit this and watch it change!")
         ;;(apply dom/form #js {:className "points"}
+        (let [key (:key data)]
         (map-indexed 
           (fn [num val] 
-          (let [id (str (:key data) "item" num) 
-                text (if (= (type val) js/String) val (nth val 0))
-                sublist (if (= (type val) js/String) nil (rest val))
-                disabled (get (:checked data) num)
-                checked (get (:checked data) num)
-                checked-once (get (:checked-once data) num)
+          (let [id (str key "_" num) 
+                text (:text val)
+                sublist (if (:sublist val) (:sublist val))
+                disabled (:checked val)
+                checked (:checked val)
+                checked-once (:checked-once val)
                 className (if checked "done" "")]
             ;;(pprint/pprint (type val))
             (dom/div #js { :className "item" :key id } 
@@ -75,7 +75,7 @@
                 )
               (dom/label #js {:htmlFor id 
                               :className className} 
-                              (str " " (:items-prefix data) text))
+                              (str " " text))
               (if checked-once 
                 (dom/span #js {:className "mark"}
                   " \u2713"))
@@ -83,7 +83,7 @@
               ;;  (dom/div nil "...")
               ;;)
                                 ))) 
-          (:list data))));)
+          (:items data)))))
 
 (defn checklist-app [data owner]
   (reify om/IRender

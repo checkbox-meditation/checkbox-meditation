@@ -6,6 +6,10 @@
               [chbme.ru]
               [chbme.en]
     ))
+(defn item-state [prefix item]
+  { :text (str prefix item)
+    :checked false
+    :checked-once false })
 
 (defn fetch-build-app-state [from] 
   (let [title  from/title
@@ -14,10 +18,7 @@
     (atom {
         :key from/_key
         :title title
-        :items-prefix prefix
-        :list list
-        :checked (vec (map #(quote false) list))
-        :checked-once (vec (map #(quote false) list))
+        :items (vec (map (fn [i] (item-state prefix i)) list))
     })))
 
 (defn attach-app [target]
