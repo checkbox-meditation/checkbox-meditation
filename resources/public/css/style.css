@@ -10,7 +10,8 @@ div.content-wrapper { padding: 2em; }
 .pure-menu-link { width: 100%; }
 
 body #app,
-body .app { 
+body .app,
+body .list { 
   padding: 1em; 
 }
 
@@ -21,7 +22,9 @@ h1 {
 }
 
 label { font-size: 130%; }
-form p input { vertical-align: text-top; } 
+.item { margin: 2ex 0; }
+p input,
+.item input { vertical-align: text-top; } 
 
 .done { color: #999; }
 
@@ -51,7 +54,8 @@ form p input { vertical-align: text-top; }
 
 @media screen and (min-width: 800px) {
   div.content-wrapper { margin-left: 4em; }
-  form p input { margin-right: 1ex; } 
+  p input,
+  .item input { margin-right: 1ex; } 
 }
 
 @media screen and (min-width: 1200px) {

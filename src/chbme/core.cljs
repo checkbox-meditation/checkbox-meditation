@@ -46,23 +46,24 @@
       (pprint/pprint (:checked state))
   ))
 
-(defn checklist-app [data owner]
-  (reify om/IRender
-    (render [_]
+(defn checklist-render [data]
       ;(prn "render-state: in")
       ;(pprint/pprint data)
       (dom/div nil
-        (dom/h1 nil (:title data))
+        (if (:title data) (dom/h1 nil (:title data)))
         ;; (dom/p nil "Edit this and watch it change!")
-        (apply dom/form #js {:className "points"}
+        ;;(apply dom/form #js {:className "points"}
         (map-indexed 
-          (fn [num text] 
-          (let [id (str (:key data) "item" num)
+          (fn [num val] 
+          (let [id (str (:key data) "item" num) 
+                text (if (= (type val) js/String) val (nth val 0))
+                sublist (if (= (type val) js/String) nil (rest val))
                 disabled (get (:checked data) num)
                 checked (get (:checked data) num)
                 checked-once (get (:checked-once data) num)
                 className (if checked "done" "")]
-            (dom/p nil
+            ;;(pprint/pprint (type val))
+            (dom/div #js { :className "item" :key id } 
               (dom/input 
                 #js { :type "checkbox" 
                       :id id 
@@ -78,14 +79,21 @@
               (if checked-once 
                 (dom/span #js {:className "mark"}
                   " \u2713"))
+              ;;(if sublist 
+              ;;  (dom/div nil "...")
+              ;;)
                                 ))) 
-          (:list data)))
+          (:list data))));)
 
-        #_(dom/p nil (str "Clicked: " (:counter data)))
+(defn checklist-app [data owner]
+  (reify om/IRender
+    (render [_] (checklist-render data))))
+
+;;        #_(dom/p nil (str "Clicked: " (:counter data)))
         ;; (dom/form nil 
         ;;  (dom/input #js {:type "checkbox" :name "breath"} )
         ;;  (dom/label #js {:htmlFor "breath"} " I notice my breath."))
-        ))))
+;;;        ))))
 
 (defn on-js-reload []
   ;; optionally touch your app-state to force rerendering depending on
