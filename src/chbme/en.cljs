@@ -8,7 +8,7 @@
       "breath",
       "body",
       "body weight",
-      ["body sensations", "something"]
+      "body sensations",
       "feelings",
       "mental state",
       "thoughts"
