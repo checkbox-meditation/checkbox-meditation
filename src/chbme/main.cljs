@@ -21,13 +21,14 @@
 (defn fetch-build-app-state [from] 
   (let [title  from/title
         prefix from/items-prefix
-        list   from/items
-        items (vec (map (fn [i] (item-state prefix i)) list))]
+        _list   from/items
+        items (vec (map (fn [i] (item-state prefix i)) _list))]
     (atom {
         :key from/_key
         :title title
         :items items
-        :index (hash-map (map-indexed (fn [n v] (list (:id v) n)) items))
+;;        :index (hash-map (:id (nth items 0)) (nth items 0))
+        :index (apply hash-map (flatten (map-indexed (fn [n v] (list (:id v) n)) items)))
     })))
 
 (defn attach-app [target]
@@ -38,7 +39,8 @@
   ;;(pprint/pprint target)
   ;;(pprint/pprint lang)
   ;; attach an om component to a DOM element
-  (om/root core/checklist-app 
+    (pprint/pprint state)
+    (om/root core/checklist-app 
           state
           {:target target})))
 
