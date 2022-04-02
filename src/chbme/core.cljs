@@ -55,7 +55,7 @@
         (let [key (:key data)]
         (map-indexed 
           (fn [num val] 
-          (let [id (str key "_" num) 
+          (let [id (:id val) 
                 text (:text val)
                 sublist (if (:sublist val) (:sublist val))
                 disabled (:checked val)

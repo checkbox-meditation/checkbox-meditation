@@ -6,19 +6,28 @@
               [chbme.ru]
               [chbme.en]
     ))
+
+(defn rand-str [len]
+  (apply str
+         (for [i (range len)]
+           (char (+ (rand 26) 65)))))
+
 (defn item-state [prefix item]
   { :text (str prefix item)
+    :id (str "id" (rand-str 6))
     :checked false
     :checked-once false })
 
 (defn fetch-build-app-state [from] 
   (let [title  from/title
         prefix from/items-prefix
-        list   from/items]
+        list   from/items
+        items (vec (map (fn [i] (item-state prefix i)) list))]
     (atom {
         :key from/_key
         :title title
-        :items (vec (map (fn [i] (item-state prefix i)) list))
+        :items items
+        :index (hash-map (map-indexed (fn [n v] (list (:id v) n)) items))
     })))
 
 (defn attach-app [target]
