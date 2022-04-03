@@ -46,6 +46,13 @@
       (gtag "event" "checkItem" #js { :event_category "engagement" :event_label (:text item) })
   ))
 
+(defn sublist-expand [idx state]
+  (let [item (get (:items state) idx)
+        value (:sublist-open item)
+        newval (not value)]
+      (om/update! state [:items idx :sublist-open] newval)
+  ))
+
 (defn checklist-render [data]
       ;(prn "render-state: in")
       ;(pprint/pprint data)
@@ -55,35 +62,47 @@
         (let [key (:key data)]
         (map-indexed 
           (fn [num val] 
-          (let [id (:id val) 
-                text (:text val)
-                sublist (if (:sublist val) (:sublist val))
-                disabled (:checked val)
-                checked (:checked val)
-                checked-once (:checked-once val)
-                className (if checked "done" "")]
-            ;;(pprint/pprint (type val))
-            (dom/div #js { :className "item" :key id } 
-              (dom/input 
-                #js { :type "checkbox" 
-                      :id id 
-                      :onClick #(on-click num data) 
-                      :disabled disabled
-                      :className className
-                      :checked (if checked 1 "")
-                    }
+            (let [id (:id val) 
+                  text (:text val)
+                  sublist (if (:sublist val) (:sublist val))
+                  disabled (:checked val)
+                  checked (:checked val)
+                  checked-once (:checked-once val)
+                  className (if checked "done" "")]
+              ;;(pprint/pprint (type val))
+              (dom/div #js { :className "item" :key id } 
+                (dom/input 
+                  #js { :type "checkbox" 
+                        :id id 
+                        :onClick #(on-click num data) 
+                        :disabled disabled
+                        :className className
+                        :checked (if checked 1 "")
+                      }
+                  )
+                (dom/label #js {:htmlFor id 
+                                :className className} 
+                                (str " " text))
+                (if checked-once 
+                  (dom/span #js {:className "mark"}
+                    " \u2713"))
+                (if sublist 
+                  (if (:sublist-open val)
+                    (list
+                     " "
+                     (dom/span #js {:className "list-collapse"
+                                    :title "collapse the expanded"
+                                :onClick #(sublist-expand num data)} 
+                               "(collapse)")
+                     (dom/div #js {:className "list"}
+                            (checklist-render sublist)))
+                    (dom/span #js {:className "list-expand" 
+                                   :title "expand a sublist"
+                                  :onClick #(sublist-expand num data)}
+                            " ..." )) 
                 )
-              (dom/label #js {:htmlFor id 
-                              :className className} 
-                              (str " " text))
-              (if checked-once 
-                (dom/span #js {:className "mark"}
-                  " \u2713"))
-              (if sublist 
-                (dom/div #js {:className "list"}   
-                         (checklist-render sublist)
-                         ))
-                                ))) 
+            ))
+          ) 
           (:items data)))))
 
 (defn checklist-app [data owner]

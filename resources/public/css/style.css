@@ -37,6 +37,13 @@ p input,
   margin-left: 1.4ex;
 }
 
+.list-collapse, 
+.list-expand {
+  color: darkblue;
+  cursor: pointer;
+  margin-left: 1.4ex;
+}
+
 .footer {
   background: #e4e4e4;
   position: fixed;

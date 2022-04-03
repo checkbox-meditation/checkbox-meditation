@@ -23,6 +23,7 @@
           item (nth item 0)]
       (assoc (item-state prefix item)
         :sublist (sublist-state sublist)
+        :sublist-open false
       ))))
 
 (defn sublist-state [_list]
