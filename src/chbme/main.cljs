@@ -7,6 +7,7 @@
               [chbme.en]
     ))
 
+;; from https://gist.github.com/rboyd/5053955
 (defn rand-str [len]
   (apply str
          (for [i (range len)]
