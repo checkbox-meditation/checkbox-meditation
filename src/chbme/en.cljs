@@ -40,7 +40,7 @@
                 "weakness",
                 "contact between the skin and the clothes",
                 "contact between the feet and the floor",
-                "contact between the bottocks and a chair",
+                "contact between the buttocks and a chair",
                 ]}],
       "feelings",
       "mental state",
