@@ -79,9 +79,10 @@
               (if checked-once 
                 (dom/span #js {:className "mark"}
                   " \u2713"))
-              ;;(if sublist 
-              ;;  (dom/div nil "...")
-              ;;)
+              (if sublist 
+                (dom/div #js {:className "list"}   
+                         (checklist-render sublist)
+                         ))
                                 ))) 
           (:items data)))))
 

@@ -8,7 +8,25 @@
       "breath",
       "body",
       "body weight",
-      "body sensations",
+      ["body sensations",
+       { 
+        :key "bp_"
+        :items-prefix ""
+        :items [
+                "toes and heels",
+                "feet",
+                "legs",
+                "bottom",
+                "back",
+                "stomach",
+                "chest",
+                "hands",
+                "arms",
+                "neck",
+                "head",
+                "face",
+                "top of the head"
+        ]}]
       "feelings",
       "mental state",
       "thoughts"

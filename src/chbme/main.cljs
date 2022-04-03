@@ -13,16 +13,32 @@
            (char (+ (rand 26) 65)))))
 
 (defn item-state [prefix item]
-  { :text (str prefix item)
-    :id (str "id" (rand-str 6))
-    :checked false
-    :checked-once false })
+  (if (= (type item) js/String)
+    { :text (str prefix item)
+      :id (str "id" (rand-str 6))
+      :checked false
+      :checked-once false }
+    (let [sublist (nth item 1)
+          item (nth item 0)]
+      (assoc (item-state prefix item)
+        :sublist (sublist-state sublist)
+      ))))
+
+(defn sublist-state [_list]
+  (let [title (:title _list)
+        prefix (:items-prefix _list)
+        rawitems (:items _list)
+        items (vec (map (fn [i] (item-state prefix i)) rawitems))]
+    {:key (:key _list)
+     :prefix prefix
+     :title title
+     :items items}))
 
 (defn fetch-build-app-state [from] 
   (let [title  from/title
         prefix from/items-prefix
-        _list   from/items
-        items (vec (map (fn [i] (item-state prefix i)) _list))]
+        rawitems   from/items
+        items (vec (map (fn [i] (item-state prefix i)) rawitems))]
     (atom {
         :key from/_key
         :title title
