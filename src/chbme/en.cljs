@@ -6,9 +6,7 @@
 (defonce items [
       "physical environment",
       "breath",
-      "body",
-      "body weight",
-      ["body sensations",
+      ["body",
        { 
         :key "bp_"
         :items-prefix ""
@@ -26,7 +24,24 @@
                 "head",
                 "face",
                 "top of the head"
-        ]}]
+        ]}],      
+      "body weight",
+      ["body sensations",
+       {
+        :items ["heat",
+                "cold",
+                "pressure",
+                "tickling",
+                "expansion",
+                "stiffness",
+                "tension",
+                "trembling",
+                "movement",
+                "weakness",
+                "contact between the skin and the clothes",
+                "contact between the feet and the floor",
+                "contact between the bottocks and a chair",
+                ]}],
       "feelings",
       "mental state",
       "thoughts"
