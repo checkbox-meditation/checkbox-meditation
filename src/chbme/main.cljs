@@ -46,7 +46,7 @@
         :title title
         :items items
 ;;        :index (hash-map (:id (nth items 0)) (nth items 0))
-        :index (apply hash-map (flatten (map-indexed (fn [n v] (list (:id v) n)) items)))
+;;        :index (apply hash-map (flatten (map-indexed (fn [n v] (list (:id v) n)) items)))
     })))
 
 (defn attach-app [target]
