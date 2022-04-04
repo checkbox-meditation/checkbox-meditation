@@ -16,3 +16,4 @@ pom.xml
 *.local
 .clj-kondo/
 .lsp/
+.calva/output-window/output.calva-repl
