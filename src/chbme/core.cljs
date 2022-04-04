@@ -56,7 +56,7 @@
 (defn checklist-render [data]
       ;(prn "render-state: in")
       ;(pprint/pprint data)
-      (dom/div nil
+      (dom/div #js {:className (:style data)}
         (if (:title data) (dom/h1 nil (:title data)))
         ;;(apply dom/form #js {:className "points"}
         (let [key (:key data)]
@@ -82,23 +82,23 @@
                   )
                 (dom/label #js {:htmlFor id 
                                 :className className} 
-                                (str " " text))
+                                (str "\u00a0" text))
                 (if checked-once 
                   (dom/span #js {:className "mark"}
-                    " \u2713"))
+                    "\u00a0\u2713"))
                 (if sublist 
                   (if (:sublist-open val)
                     (list
-                     (dom/span #js {:className "list-collapse"
-                                    :title "collapse the expanded"
-                                :onClick #(sublist-expand num data)} 
+                     (dom/span #js { :className "list-collapse"
+                                     :title "collapse the expanded"
+                                     :onClick #(sublist-expand num data)} 
                                "(collapse)")
                      (dom/div #js {:className "list"}
-                            (checklist-render sublist)))
-                    (dom/span #js {:className "list-expand" 
-                                   :title "expand a sublist"
-                                  :onClick #(sublist-expand num data)}
-                            "..." )) 
+                              (checklist-render sublist)))
+                    (dom/span #js { :className "list-expand" 
+                                    :title "expand a sublist"
+                                    :onClick #(sublist-expand num data)}
+                              "..." )) 
                 )
             ))
           ) 

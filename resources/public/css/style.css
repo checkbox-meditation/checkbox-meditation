@@ -26,8 +26,11 @@ h1 {
 
 label { font-size: 130%; }
 .item { margin: 2ex 0; }
-p input,
-.item input { vertical-align: text-top; } 
+
+.item input, 
+.item label {
+  vertical-align: baseline;
+}
 
 .done { color: #999; }
 
@@ -45,6 +48,14 @@ p input,
   text-decoration: underline;
   font-size: 90%;
 }
+
+.in-line div.item {
+  display: inline-block;
+  padding-right: 2ex;
+  margin: 2px; 
+}
+
+.in-line .mark { margin-left: 0; }
 
 .footer {
   background: #e4e4e4;

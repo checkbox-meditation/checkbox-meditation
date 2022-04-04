@@ -34,17 +34,20 @@
     {:key (:key _list)
      :prefix prefix
      :title title
+     :style (:style _list)
      :items items}))
 
 (defn fetch-build-app-state [from] 
   (let [title  from/title
         prefix from/items-prefix
+        style  from/style
         rawitems   from/items
         items (vec (map (fn [i] (item-state prefix i)) rawitems))]
     (atom {
         :key from/_key
         :title title
         :items items
+        :style style
 ;;        :index (hash-map (:id (nth items 0)) (nth items 0))
 ;;        :index (apply hash-map (flatten (map-indexed (fn [n v] (list (:id v) n)) items)))
     })))

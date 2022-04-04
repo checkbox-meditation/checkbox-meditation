@@ -13,6 +13,7 @@
       ["body",
        { 
         :key "bp_"
+        :style "in-line"
         :items-prefix ""
         :items [
                 "toes and heels",
