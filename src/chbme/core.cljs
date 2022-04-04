@@ -89,7 +89,6 @@
                 (if sublist 
                   (if (:sublist-open val)
                     (list
-                     " "
                      (dom/span #js {:className "list-collapse"
                                     :title "collapse the expanded"
                                 :onClick #(sublist-expand num data)} 
@@ -99,7 +98,7 @@
                     (dom/span #js {:className "list-expand" 
                                    :title "expand a sublist"
                                   :onClick #(sublist-expand num data)}
-                            " ..." )) 
+                            "..." )) 
                 )
             ))
           ) 

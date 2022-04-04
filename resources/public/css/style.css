@@ -41,7 +41,9 @@ p input,
 .list-expand {
   color: darkblue;
   cursor: pointer;
-  margin-left: 1.4ex;
+  margin-left: 1ex;
+  text-decoration: underline;
+  font-size: 90%;
 }
 
 .footer {
