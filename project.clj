@@ -1,4 +1,4 @@
-(defproject checkbox-meditation "0.1.0-a"
+(defproject checkbox-meditation "0.2.0-a"
   :description "A little online self-awareness tool"
   :url "https://github.com/checkbox-meditation/checkbox-meditation"
   :license {:name "MIT"}
@@ -32,7 +32,7 @@
                            ;; Comment this out once it no longer serves you.
                            :open-urls ["http://localhost:3449/index.html"]}
 
-                :compiler 
+                :compiler ;; previous version, now dated
                             {:main chbme.main
                             :asset-path "/js/compiled/out"
                             :output-to "resources/public/js/compiled/chbme.js"
@@ -43,9 +43,20 @@
                             :preloads [devtools.preload]}
                }
 
-               ;; This next build is a compressed minified build for
+               ;; This build is a compressed minified build for
                ;; production. You can build this with:
-               ;; lein cljsbuild once min
+               ;; lein cljsbuild once chebome-min
+               {:id "chebome-min"
+                :source-paths ["src"]
+                :compiler 
+                            {:main chebome.lib
+                             :output-to "resources/public/js/compiled/chebome.js"
+                             :output-dir "resources/public/js/compiled/out.lib"
+                             :optimizations :advanced
+                             :pretty-print false
+                           }
+               }
+
                {:id "min"
                 :source-paths ["src"]
                 :compiler {:output-to "resources/public/js/compiled/chbme.js"
