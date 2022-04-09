@@ -65,23 +65,22 @@
             (let [id (:id val) 
                   text (:text val)
                   sublist (if (:sublist val) (:sublist val))
+                  sublist-open (:sublist-open val)
                   disabled (:checked val)
                   checked (:checked val)
                   checked-once (:checked-once val)
-                  className (if checked "done" "")]
+                  className (str "item " (if checked "done" "") " " (if sublist-open "expanded" ""))]
               ;;(pprint/pprint (type val))
-              (dom/div #js { :className "item" :key id } 
+              (dom/div #js { :className className :key id } 
                 (dom/input 
                   #js { :type "checkbox" 
                         :id id 
                         :onClick #(on-click num data) 
                         :disabled disabled
-                        :className className
                         :checked (if checked 1 "")
                       }
                   )
-                (dom/label #js {:htmlFor id 
-                                :className className} 
+                (dom/label #js {:htmlFor id} 
                                 (str "\u00a0" text))
                 (if checked-once 
                   (dom/span #js {:className "mark"}

@@ -32,7 +32,7 @@ label { font-size: 130%; }
   vertical-align: baseline;
 }
 
-.done { color: #999; }
+.done > label { color: #999; }
 
 .mark { 
   color: green; 
@@ -56,6 +56,10 @@ label { font-size: 130%; }
 }
 
 .in-line .mark { margin-left: 0; }
+
+.in-line div.expanded {
+  display: block;
+}
 
 .footer {
   background: #e4e4e4;
