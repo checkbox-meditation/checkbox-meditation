@@ -19,6 +19,25 @@
       gtag('js', new Date());
 
       gtag('config', 'UA-923636-14');
+
+var list = {
+  "_key":  "ru_",
+  "title": "Осознавание себя. Чеклист",
+  "items-prefix": "я замечаю",
+  "items": [
+    ", где я нахожусь и что вокруг",
+    " своё дыхание",
+    " вес своего тела и телесные ощущения",
+    " свои чувства и эмоции",
+    " состояние своего ума и мысли",
+    " своё присутствие"
+  ]
+};
+
+window.addEventListener('DOMContentLoaded', (event) => {
+  res = chebome.lib.attach_app( document.getElementById("app"), list );
+});
+
     </script>
   </head>
   <body>
@@ -53,5 +72,5 @@
       </p>
     </div>
 </body>
-  <script src="../js/compiled/chbme.js" type="text/javascript"></script>
+  <script src="../js/compiled/chebome.js" type="text/javascript"></script>
 </html>

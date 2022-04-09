@@ -33,9 +33,9 @@
                            :open-urls ["http://localhost:3449/index.html"]}
 
                 :compiler ;; previous version, now dated
-                            {:main chbme.main
+                            {:main chebome.lib
                             :asset-path "/js/compiled/out"
-                            :output-to "resources/public/js/compiled/chbme.js"
+                            :output-to "resources/public/js/compiled/chebome.js"
                             :output-dir "resources/public/js/compiled/out"
                             :source-map-timestamp true
                             ;; To console.log CLJS data-structures make sure you enable devtools in Chrome
@@ -57,13 +57,6 @@
                            }
                }
 
-               {:id "min"
-                :source-paths ["src"]
-                :compiler {:output-to "resources/public/js/compiled/chbme.js"
-                           :output-dir "resources/public/js/compiled/out.min" 
-                           :main chbme.main
-                           :optimizations :advanced
-                           :pretty-print false}}
               ]}
 
   :figwheel {;; :http-server-root "public" ;; default and assumes "resources"
