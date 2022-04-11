@@ -1,17 +1,39 @@
 /* some style */
-body { margin: 0 }
+/* sticky footer from https://stackoverflow.com/a/32151246/284595 */
+html {
+  height: 100%;
+  background-color: #e4e4e4;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  background-color: #fff;
+}
+.footer {
+  background-color: #e4e4e4;
+  margin-top: auto;
+  text-align: center;
+  padding: 0.4ex;
+}
 
 div#menu ul {
   /* x-float: right; */
 }
 
-div.content-wrapper { padding: 2em; } 
+div.content-wrapper { padding: 0 2em; } 
 
 .pure-menu-link { width: 100%; }
 
 body #app,
 body .app { 
-  margin: 1em; 
+  margin: 0; 
 }
 
 .item .list {
@@ -29,6 +51,7 @@ label { font-size: 130%; }
 
 .item input, 
 .item label {
+  margin-right: .8ex;
   vertical-align: baseline;
 }
 
@@ -37,7 +60,7 @@ label { font-size: 130%; }
 .mark { 
   color: green; 
   display: inline-block;
-  margin-left: 1.4ex;
+  margin-left: 0.6ex;
 }
 
 .list-collapse, 
@@ -61,33 +84,18 @@ label { font-size: 130%; }
   display: block;
 }
 
-.footer {
-  background: #e4e4e4;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
-  padding: 0.4ex;
-}
-
 .footer p { vertical-align: middle; }
 
-@media screen and (min-width: 600px) {
-  body #app, 
-  body .app { padding: 1ex; }
-  h1 { margin-bottom: 2em; }
-  div.content-wrapper { padding: 2em 2em 4em 2em; } 
-  .pure-menu-link { width: 12ex; }
-  .item .list { padding-left: 2em; }  
-}
-
 @media screen and (min-width: 800px) {
-  div.content-wrapper { padding-left: 4em; }
-  p input,
-  .item input { margin-right: 1ex; } 
-  .item .list { padding-left: 4em; }  
+  div.content-wrapper { padding-left: 6em; }
+  /* .footer { position: fixed; bottom: 0; } */
 }
 
 @media screen and (min-width: 1200px) {
-  div.content-wrapper { padding-left: 12em; }
+  div.content-wrapper { padding-left: 12em; padding-right: 12em }
+  /* .footer { position: fixed; bottom: 0; } */
+}
+
+@media screen and (min-height: 800px) {
+  div.content-wrapper { padding-top: 2em; padding-bottom: 2em; }   
 }
