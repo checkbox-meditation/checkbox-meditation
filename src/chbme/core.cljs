@@ -7,7 +7,7 @@
               [om.dom :as dom :include-macros true]
               ;;[cljs.core.async :refer [thread put! chan <! timeout]]
               [clojure.pprint :as pprint]
-              [clojure.core.async :as ca]
+              ;;[clojure.core.async :as ca]
               ))
 
 (enable-console-print!)
@@ -15,10 +15,11 @@
 ;; https://coderwall.com/p/s3j4va/google-analytics-tracking-in-clojurescript
 ;; by Aleš Roubíček https://coderwall.com/rarous
 ;; modified for gtag api: https://developers.google.com/analytics/devguides/collection/gtagjs/events
-(defn gtag [& more]
-  (when js/gtag
-    (.. (aget js/window "gtag")
-        (apply nil (clj->js more)))))
+(defn track-event [& more] 
+    (when (aget js/window "gtag")
+      (.. (aget js/window "gtag")
+          (apply nil (clj->js more))))
+ )
 
 ;; miliseconds
 (def restore-delay 5000)
@@ -43,7 +44,7 @@
           #(om/update! state [:items idx :checked] false)
           restore-delay))
       ;; track in google analytics
-      (gtag "event" "checkItem" #js { :event_category "engagement" :event_label (:text item) })
+      (track-event "event" "checkItem" #js { :event_category "engagement" :event_label (:text item) })
   ))
 
 (defn sublist-expand [idx state]
@@ -106,16 +107,3 @@
 (defn checklist-app [data owner]
   (reify om/IRender
     (render [_] (checklist-render data))))
-
-;;        #_(dom/p nil (str "Clicked: " (:counter data)))
-        ;; (dom/form nil 
-        ;;  (dom/input #js {:type "checkbox" :name "breath"} )
-        ;;  (dom/label #js {:htmlFor "breath"} " I notice my breath."))
-;;;        ))))
-
-(defn on-js-reload []
-  ;; optionally touch your app-state to force rerendering depending on
-  ;; your application
-  ;; (swap! app-state update-in [:__figwheel_counter] inc)
-  ;;(pprint/pprint (:checked @app-state))
-)
