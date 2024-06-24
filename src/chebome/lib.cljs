@@ -4,6 +4,10 @@
             [clojure.pprint :as pprint]
             [chbme.core :as core]))
 
+;; default timeout for a checkbox recovery after being clicked 
+;; and disabled, in milliseconds. Can be overriden
+(def default-timeout 5000)
+
 ;; from https://gist.github.com/rboyd/5053955
 (defn rand-str [len]
   (apply str
@@ -41,9 +45,8 @@
     (atom {:key (:key from)
            :title title
            :items items
-           :style (:style from)
-;;        :index (hash-map (:id (nth items 0)) (nth items 0))
-;;        :index (apply hash-map (flatten (map-indexed (fn [n v] (list (:id v) n)) items)))
+           :style (:style from) 
+           :timeout (:timeout from default-timeout) ;; in milliseconds
            })))
 
 (defn ^:export attach-app [target init]

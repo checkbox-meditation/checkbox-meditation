@@ -21,8 +21,6 @@
           (apply nil (clj->js more))))
  )
 
-;; miliseconds
-(def restore-delay 5000)
 
 (defn on-click [idx state]
   ;; #js console.log(e)
@@ -42,7 +40,8 @@
       (if newval 
         (js/setTimeout ; https://yogthos.net/posts/2017-03-26-ReagentReactView.html
           #(om/update! state [:items idx :checked] false)
-          restore-delay))
+          ;; timeout in miliseconds
+          (:timeout state)))
       ;; track in google analytics
       (track-event "event" "checkItem" #js { :event_category "engagement" :event_label (:text item) })
   ))
