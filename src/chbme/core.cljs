@@ -82,9 +82,13 @@
                       }
                   )
                 (dom/label #js {:htmlFor id} 
-                                (str "\u00a0" text))
+                                ;; https://www.compart.com/en/unicode/U+00A0
+                                ;; non-break space (NBSP)
+                                (str "\u00a0" text)) 
                 (if checked-once 
                   (dom/span #js {:className "mark"}
+                                ;; non-break space + check mark
+                                ;; https://www.compart.com/en/unicode/U+2713
                     "\u00a0\u2713"))
                 (if sublist 
                   (if (:sublist-open val)
