@@ -41,8 +41,14 @@ window.addEventListener('DOMContentLoaded', (event) => {
 var list2 = {
   "title": "Дыхание",
   "items": [
-    "вдох",
-    "выдох"
+    ["вдох", 
+      { 
+        "items": ["расширение грудной клетки"] 
+      } 
+    ], 
+    ["выдох",
+      {"items": [ "сжатие грудной клетки" ]}
+    ]
   ],
   "timeout": 2111, // milliseconds
 };
