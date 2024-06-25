@@ -26,7 +26,6 @@
   ;; #js console.log(e)
   ;;(om/transact! data :checked #( (:checked data)))
   ;(prn "on-click: in")
-  ;(pprint/pprint state)
   (let [item (get (:items state) idx)
         value (:checked item)
         newval (not value)]
@@ -34,6 +33,8 @@
       (om/update! state [:items idx :checked] newval)
       (if (not (:checked-once item))
           (om/update! state [:items idx :checked-once] true))
+      ;;(pprint/pprint state)
+      ;;(println (str "timeout " (:timeout state)))
       ;; here, we schedule an auto-reset the checked item, after a little wait
       ;; https://clojuredocs.org/clojure.core.async/go
       ;; another resource: https://purelyfunctional.tv/guide/clojure-concurrency/#core.async
