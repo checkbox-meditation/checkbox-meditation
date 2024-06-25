@@ -1,5 +1,6 @@
 (ns chbme.ru)
 
+(defonce _key "ru_")
 (defonce title "Осознавание себя. Чеклист")
 (defonce items-prefix "я замечаю")
 (defonce items [

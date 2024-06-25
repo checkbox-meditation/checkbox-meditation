@@ -19,6 +19,45 @@
       gtag('js', new Date());
 
       gtag('config', 'UA-923636-14');
+
+var list = {
+  "_key":  "ru_",
+  "title": "Осознавание себя. Чеклист",
+  "items-prefix": "я замечаю",
+  "items": [
+    ", где я нахожусь и что вокруг",
+    " своё дыхание",
+    " вес своего тела и телесные ощущения",
+    " свои чувства и эмоции",
+    " состояние своего ума и мысли",
+    " своё присутствие"
+  ]
+};
+
+window.addEventListener('DOMContentLoaded', (event) => {
+  res = chebome.lib.attach_app( document.getElementById("app"), list );
+});
+
+var list2 = {
+  "title": "Дыхание",
+  "items": [
+    ["вдох", 
+      { 
+        "items": ["расширение грудной клетки"] 
+      } 
+    ], 
+    ["выдох",
+      {"items": [ "сжатие грудной клетки" ]}
+    ]
+  ],
+  "timeout": 2111, // milliseconds
+};
+
+window.addEventListener('DOMContentLoaded', (event) => {
+  res = chebome.lib.attach_app( document.getElementById("app"), list );
+  re2 = chebome.lib.attach_app( document.getElementById("app2"), list2 );
+});
+
     </script>
   </head>
   <body>
@@ -40,18 +79,24 @@
     </div>
 
     <div class='content-wrapper'>
-      <div id="app" lang="ru">
+      <div id="app" class="chbme" lang="ru">
         <h2>Загружаемся...</h2>
         <p>Здесь будет город цвесть.</p>
         <p>Если не загрузилось, значит произошла ошибка. :(</p>
       </div>      
-      <div class="footer">
-        <p><a href='https://github.com/checkbox-meditation/checkbox-meditation'>исходники (github)</a> 
-          &#x25C6;
-          <a href='mailto:duraley@gmail.com'>написать</a>
-        </p>
-      </div>
+
+      <div id="app2"  lang="ru">
+        <h2>Подышим?</h2>
+        <p>Здесь будет город 2.</p>
+      </div>      
+
     </div>
-  </body>
-  <script src="../js/compiled/chbme.js" type="text/javascript"></script>
+    <div class="footer">
+      <p><a href='https://github.com/checkbox-meditation/checkbox-meditation'>исходники (github)</a> 
+        &#x25C6;
+        <a href='mailto:duraley@gmail.com'>написать</a>
+      </p>
+    </div>
+</body>
+  <script src="../js/compiled/chebome.js" type="text/javascript"></script>
 </html>

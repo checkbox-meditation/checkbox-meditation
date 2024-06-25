@@ -14,3 +14,6 @@ pom.xml
 .nrepl-port
 .rebel_readline_history
 *.local
+.clj-kondo/
+.lsp/
+.calva/output-window/output.calva-repl

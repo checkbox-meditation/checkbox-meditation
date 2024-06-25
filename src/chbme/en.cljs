@@ -1,13 +1,69 @@
 (ns chbme.en)
 
+(defonce _key "en_")
 (defonce title "Self-awareness checklist")
 (defonce items-prefix "I notice my ")
 (defonce items [
       "physical environment",
-      "breath",
-      "body",
+      ["breath", {:items ["in-breath", 
+                          "out-breath", 
+                          "flow of the air into the nostrils and out", 
+                          "expansion of the chest / stomach",
+                          "contraction of the chest / stomach"]}],
+      ["body",
+       { 
+        :key "bp_"
+        :style "in-line"
+        :items-prefix ""
+        :items [
+                "toes and heels",
+                "feet",
+                "legs",
+                "bottom",
+                "back",
+                "belly / stomach",
+                "chest",
+                "hands",
+                "arms",
+                "neck",
+                "head", 
+                ["face", {:key "f" :items ["lips", "area around the eyes", "forehead", "jaws"]}],
+                "top of the head"
+        ]}],      
       "body weight",
-      "body sensations",
+      ["body sensations",
+       {
+        :items ["warmth or heat",
+                "cold or freezing",
+                "pressure",
+                "tickling",
+                "expansion or stretching",
+                "stiffness",
+                "weight",
+                "tension",
+                "trembling",
+                "movement",
+                "weakness",
+                "pulsing",
+                "aliveness",
+                "pleasure",
+                "pain",
+                "contact between the skin and the clothes",
+                "contact between the feet and the floor / ground",
+                "contact between the buttocks and a chair",
+                ]}],
+      ["sensory perceptions",
+       {:items [
+                "vision: light and darkness",
+                "vision: colors",
+                "vision: field of view",
+                "hearing: sounds",
+                "smelling: smells",
+                "touch",
+                "taste",
+                "body position"
+                ]}
+      ],
       "feelings",
       "mental state",
       "thoughts"

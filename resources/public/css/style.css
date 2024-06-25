@@ -1,21 +1,43 @@
 /* some style */
-body { margin: 0 }
+/* sticky footer from https://stackoverflow.com/a/32151246/284595 */
+html {
+  height: 100%;
+  background-color: #e4e4e4;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  background-color: #fff;
+}
+.footer {
+  background-color: #e4e4e4;
+  margin-top: auto;
+  text-align: center;
+  padding: 0.4ex;
+}
 
 div#menu ul {
   /* x-float: right; */
 }
 
-div.content-wrapper {
-  /* 
-    margin-top: 2em;
-    border-top: solid #e4e4e4 1px;
-  */
-}
+div.content-wrapper { padding: 0 2em; } 
 
 .pure-menu-link { width: 100%; }
 
-body #app { 
-  padding: 1em 1em 8em 1em; 
+body #app,
+body .app { 
+  margin: 0; 
+}
+
+.item .list {
+  padding-left: 2em;
 }
 
 h1 {
@@ -25,39 +47,55 @@ h1 {
 }
 
 label { font-size: 130%; }
-form p input { vertical-align: text-top; } 
+.item { margin: 2ex 0; }
 
-.done { color: #999; }
+.item input, 
+.item label {
+  margin-right: .8ex;
+  vertical-align: baseline;
+}
+
+.done > label { color: #999; }
 
 .mark { 
   color: green; 
   display: inline-block;
-  margin-left: 1.4ex;
+  margin-left: 0.6ex;
 }
 
-.footer {
-  background: #e4e4e4;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
-  padding: 0.4ex;
+.list-collapse, 
+.list-expand {
+  color: darkblue;
+  cursor: pointer;
+  margin-left: 1ex;
+  text-decoration: underline;
+  font-size: 90%;
+}
+
+.in-line div.item {
+  display: inline-block;
+  padding-right: 2ex;
+  margin: 2px; 
+}
+
+.in-line .mark { margin-left: 0; }
+
+.in-line div.expanded {
+  display: block;
 }
 
 .footer p { vertical-align: middle; }
 
-@media screen and (min-width: 600px) {
-  body #app { padding: 2em 2em 8em 2em; }
-  h1 { margin-bottom: 2em; }
-  div.content-wrapper { padding-top: 2em; }
-  .pure-menu-link { width: 12ex; }
-}
-
 @media screen and (min-width: 800px) {
-  body #app { padding-left: 4em; }
-  form p input { margin-right: 1ex; } 
+  div.content-wrapper { padding-left: 6em; }
+  /* .footer { position: fixed; bottom: 0; } */
 }
 
 @media screen and (min-width: 1200px) {
-  body #app { padding-left: 12em; }
+  div.content-wrapper { padding-left: 12em; padding-right: 12em }
+  /* .footer { position: fixed; bottom: 0; } */
+}
+
+@media screen and (min-height: 800px) {
+  div.content-wrapper { padding-top: 2em; padding-bottom: 2em; }   
 }
