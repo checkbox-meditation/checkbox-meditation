@@ -40,7 +40,7 @@
              :sublist (list-state sublist appstate)
              :sublist-open false))))
 
-(defn list-state [_list appstate]
+(defn list-state [_list & appstate]
   (let [title (:title _list)
         prefix (:items-prefix _list)
         rawitems (:items _list)
