@@ -4,6 +4,20 @@
             [clojure.pprint :as pprint]
             [chbme.core :as core]))
 
+;; initial app state structure:
+;;   :title text
+;;   :key string, optional
+;;   :items list
+;;   :items-prefix text
+;;   :style string, optional
+;;   :timeout, integer, optional
+;;
+;; and it is infinitely recursive, since each item in :items may be one of two things:
+;; - a text string
+;; - a vector containing a text string and a list object, meaning a sub-list; and 
+;;   the list object in this case has the same structure as the initial app structure 
+;;
+
 ;; default timeout for a checkbox recovery after being clicked 
 ;; and disabled, in milliseconds. Can be overriden
 (def default-timeout 5000)
@@ -23,32 +37,24 @@
     (let [sublist (nth item 1)
           item (nth item 0)]
       (assoc (item-state prefix item appstate)
-             :sublist (sublist-state sublist appstate)
+             :sublist (list-state sublist appstate)
              :sublist-open false))))
 
-(defn sublist-state [_list appstate]
+(defn list-state [_list appstate]
   (let [title (:title _list)
         prefix (:items-prefix _list)
         rawitems (:items _list)
-        items (vec (map (fn [i] (item-state prefix i appstate)) rawitems))]
+        rootstate (if appstate appstate _list)
+        items (vec (map (fn [i] (item-state prefix i rootstate)) rawitems))]
     {:key (:key _list (str "key" (rand-str 6)))
      :prefix prefix
      :title title
      :style (:style _list)
-     :timeout (:timeout _list (:timeout appstate default-timeout)) ;; in milliseconds
+     :timeout (:timeout _list (:timeout rootstate default-timeout)) ;; in milliseconds
      :items items}))
 
 (defn ^:export init-app-state [from]
-  (let [title    (:title from)
-        prefix   (:items-prefix from)
-        rawitems (:items from)
-        items    (vec (map (fn [i] (item-state prefix i from)) rawitems))]
-    (atom {:key (:key from (str "key" (rand-str 6)))
-           :title title
-           :items items
-           :style (:style from) 
-           :timeout (:timeout from default-timeout) ;; in milliseconds
-           })))
+  (list-state from))
 
 (defn ^:export attach-app [target init]
     ;; attach an om component to a DOM element
