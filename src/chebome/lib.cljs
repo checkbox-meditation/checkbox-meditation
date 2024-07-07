@@ -39,7 +39,7 @@
 ;; The :sublist-state in an item-options could be:
 ;;   "hidden"
 ;;   "collapsed"
-;;   "live"
+;;   "open"
 
 ;; default timeout for a checkbox recovery after being clicked 
 ;; and disabled, in milliseconds. Can be overriden
@@ -67,9 +67,9 @@
           opt     (if opt opt o)]
       (assoc (item-state prefix name appstate o)
              :sublist (list-state sublist appstate)
-             :sublist-open (if (and opt 
-                                    (:sublist-open opt)) 
-                             (:sublist-open opt) 
+             :sublist-state (if (and opt 
+                                    (:sublist-state opt)) 
+                             (:sublist-state opt) 
                              false)
       ))))
 

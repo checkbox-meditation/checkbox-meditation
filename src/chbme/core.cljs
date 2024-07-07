@@ -49,9 +49,11 @@
 
 (defn sublist-expand [idx state]
   (let [item (get (:items state) idx)
-        value (:sublist-open item)
-        newval (not value)]
-      (om/update! state [:items idx :sublist-open] newval)
+        value (:sublist-state item)
+        newval (if (= value "open") "collapsed"
+                   (if (= value "collapsed") "open" "open")
+                   )]
+      (om/update! state [:items idx :sublist-state] newval)
   ))
 
 (defn checklist-render [data]
@@ -66,12 +68,12 @@
             (let [id (:id val) 
                   text (:text val)
                   sublist (if (:sublist val) (:sublist val))
-                  sublist-open (:sublist-open val)
                   disabled (:checked val)
                   checked (:checked val)
                   checked-once (:checked-once val)
                   hidden (= (:state val) "hidden")
                   sublist-hidden (= (:sublist-state val) "hidden")
+                  sublist-open (= (:sublist-state val) "open")
                   className (str "item " (if checked "done" "") " " (if sublist-open "expanded" ""))
                   ]
               ;; (pprint/pprint (type val))
@@ -96,7 +98,7 @@
                     "\u00a0\u2713"))
                 (if (and sublist 
                          (not sublist-hidden) 
-                         (:sublist-open val))
+                         sublist-open)
                     (list
                      (dom/span #js { :className "list-collapse"
                                      :title "collapse the expanded"
@@ -107,7 +109,7 @@
                     ))
                 (if (and sublist 
                          (not sublist-hidden) 
-                         (not (:sublist-open val)))
+                         (not sublist-open))
                     (dom/span #js { :className "list-expand" 
                                     :title "expand a sublist"
                                     :onClick #(sublist-expand num data)}
