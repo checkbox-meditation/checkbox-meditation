@@ -70,8 +70,12 @@
                   disabled (:checked val)
                   checked (:checked val)
                   checked-once (:checked-once val)
-                  className (str "item " (if checked "done" "") " " (if sublist-open "expanded" ""))]
-              ;;(pprint/pprint (type val))
+                  hidden (= (:state val) "hidden")
+                  sublist-hidden (= (:sublist-state val) "hidden")
+                  className (str "item " (if checked "done" "") " " (if sublist-open "expanded" ""))
+                  ]
+              ;; (pprint/pprint (type val))
+              (if (not hidden)
               (dom/div #js { :className className :key id } 
                 (dom/input 
                   #js { :type "checkbox" 
@@ -90,22 +94,25 @@
                                 ;; non-break space + check mark
                                 ;; https://www.compart.com/en/unicode/U+2713
                     "\u00a0\u2713"))
-                (if sublist 
-                  (if (:sublist-open val)
+                (if (and sublist 
+                         (not sublist-hidden) 
+                         (:sublist-open val))
                     (list
                      (dom/span #js { :className "list-collapse"
                                      :title "collapse the expanded"
                                      :onClick #(sublist-expand num data)} 
                                "(collapse)")
                      (dom/div #js {:className "list"}
-                              (checklist-render sublist)))
+                              (checklist-render sublist))
+                    ))
+                (if (and sublist 
+                         (not sublist-hidden) 
+                         (not (:sublist-open val)))
                     (dom/span #js { :className "list-expand" 
                                     :title "expand a sublist"
                                     :onClick #(sublist-expand num data)}
-                              "..." )) 
-                )
-            ))
-          ) 
+                              "..." ))
+          )))) 
           (:items data)))))
 
 (defn checklist-app [data owner]

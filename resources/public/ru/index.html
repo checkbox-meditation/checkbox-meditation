@@ -40,14 +40,30 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 var list2 = {
   "title": "Дыхание",
+  "options": {
+    "sublists-hidden": true,
+    "onclick-reveal-sublist": true,
+    "onclick-reveal-surround": true,
+  },
   "items": [
-    ["вдох", 
-      { 
-        "items": ["расширение грудной клетки"] 
+    [ "вдох", 
+      {
+        "topics": ["breath"],
+        "sublist-state": "hidden"
+      },
+      {
+        "state": "hidden",
+        "items": [ "расширение грудной клетки" ] 
       } 
     ], 
-    ["выдох",
-      {"items": [ "сжатие грудной клетки" ]}
+    [ "выдох",
+      { 
+        "sublist-state": "live",
+        "sublist-open": true
+       },
+      { 
+        "items": [ "сжатие грудной клетки" ]
+      }
     ]
   ],
   "timeout": 2111, // milliseconds

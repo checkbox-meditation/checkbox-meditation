@@ -1,4 +1,4 @@
-(defproject checkbox-meditation "0.2.1"
+(defproject checkbox-meditation "0.3"
   :description "A little online self-awareness tool"
   :url "https://github.com/checkbox-meditation/checkbox-meditation"
   :license {:name "MIT"}
