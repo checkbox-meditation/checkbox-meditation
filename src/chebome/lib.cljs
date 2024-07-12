@@ -19,8 +19,9 @@
 ;; - a text string, or
 ;; - a vector containing:
 ;;   1) a text string and 
-;;   2) an item-options object
-;;   3) a sub-list object, meaning a sub-list below this item; and 
+;;   2) an item-options object, optional.
+;;   3) a sub-list object, optional. 
+;;      Meaning an expandable sub-list below this item; and 
 ;;      the sub-list object in this case has the same structure as 
 ;;      the initial app structure.
 ;;
@@ -62,15 +63,18 @@
              :checked-once false
              ))
     (let [name    (nth item 0) 
-          o       (nth item 1)
-          sublist (nth item 2)
-          opt     (if opt opt o)]
-      (assoc (item-state prefix name appstate o)
-             :sublist (list-state sublist appstate)
-             :sublist-state (if (and opt 
-                                    (:sublist-state opt)) 
-                             (:sublist-state opt) 
-                             false)
+          o       (nth item 1 opt)
+          sublist (nth item 2 nil)
+          additional (if sublist 
+                        {:sublist (list-state sublist appstate)
+                         :sublist-state (if (and o
+                                                (:sublist-state o))
+                                            (:sublist-state o)
+                                            (:sublist-state appstate))
+                        } 
+                        nil)]
+      (merge (item-state prefix name appstate o)
+            additional 
       ))))
 
 
